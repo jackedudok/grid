@@ -1,0 +1,32 @@
+<div class="dialog-wrapper" [formGroup]="formGroup">
+  <mat-form-field appearance="outline">
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Address</mat-label>
+    <input matInput formControlName="address">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Amount</mat-label>
+    <input matInput formControlName="amount">
+  </mat-form-field>
+
+  <mat-form-field *ngIf="this.data?.role === roleEnum.Admin" appearance="outline">
+    <mat-label>Status</mat-label>
+    <mat-select formControlName="status">
+      <mat-option  *ngFor="let status of statuses"
+                   value="{{status?.value}}">{{status?.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="dialog-button-wrapper">
+    <button color="primary" [disabled]="!!formGroup.invalid"  mat-raised-button (click)="confirm()"
+            class="blue-button">{{data.action ? 'Edit' : 'Add'}}</button>
+
+    <button color="primary" mat-raised-button [mat-dialog-close]
+            class="blue-button">Cancel</button>
+  </div>
+</div>

@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="actions-wrapper">
+    <div class="roles">
+      <mat-form-field appearance="outline">
+        <mat-label>Roles</mat-label>
+        <mat-select (selectionChange)="roleSelectionChange($event.value)" value="{{roles[2].value}}">
+          <mat-option *ngFor="let role of roles"
+                      value="{{role?.value}}">{{role?.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="filter">
+      <mat-form-field appearance="outline">
+        <mat-label>Status Filter</mat-label>
+        <mat-select (selectionChange)="statusSelectionChange($event.value)" value="{{statuses[0].value}}">
+          <mat-option *ngFor="let status of statuses"
+                      value="{{status?.value}}">{{status?.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="actions">
+      <button (click)="openDialog(actionEnum.Add)" mat-raised-button color="primary">
+        <mat-icon>add</mat-icon>
+      </button>
+      <button [disabled]="!selectedRowData" (click)="openDialog(actionEnum.Edit)" mat-raised-button color="primary">
+        <mat-icon>edite</mat-icon>
+      </button>
+
+      <button [disabled]="!selectedRowData" (click)="removeSelectedRecord()" mat-raised-button color="primary">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <ag-grid-angular
+    style="width: 100%; height: 400px;"
+    class="ag-theme-alpine"
+    [rowSelection]="'single'"
+    [rowData]="gridData"
+    (rowClicked)="rowClicked($event)"
+    (gridReady)="onGridReady($event)"
+    [columnDefs]="columnDefs">
+  </ag-grid-angular>
+
+  <div class="actions-buttons">
+    <button (click)="updateData()" mat-raised-button color="primary">Save</button>
+    <button (click)="getData()" mat-raised-button color="primary">Cancel</button>
+  </div>
+</div>
+
+
+
+
